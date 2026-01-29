@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniela & Adrian - 15 Iunie 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold: #C9A962; --gold-light: #D4BC7E; --gold-dark: #A8893C;
+            --cream: #FAF8F5; --charcoal: #2C2C2C; --soft-gray: #6B6B6B;
+            --error: #c0392b; --waze: #33CCFF; --decline-red: #8B4557;
+            --pink: #C77D9E;
+        }
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #FAF8F5 0%, #F5F0E8 50%, #EDE6DA 100%);
+            min-height: 100vh; color: var(--charcoal); overflow-x: hidden;
+        }
+        .bg-decoration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .bg-decoration::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 20% 20%, rgba(201, 169, 98, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(201, 169, 98, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(201, 169, 98, 0.03) 0%, transparent 70%);
+            animation: shimmer 20s ease-in-out infinite;
+        }
+        @keyframes shimmer { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(-2%, -2%) rotate(1deg); } }
+        .invitation-container { position: relative; z-index: 1; max-width: 650px; margin: 0 auto; padding: 20px; }
+        .card {
+            background: linear-gradient(145deg, #FFFFFF 0%, #FDFCFA 100%); border-radius: 4px;
+            position: relative; margin-bottom: 30px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.08), 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 4px; pointer-events: none; }
+        .card-inner { position: relative; padding: 50px 40px; }
+        .gold-edge { position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px; border: none; pointer-events: none; }
+        .gold-edge::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--pink) 5%, var(--gold-light) 50%, var(--pink) 95%, transparent 100%); filter: blur(0.5px); }
+        .gold-edge::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--pink) 5%, var(--gold-light) 50%, var(--pink) 95%, transparent 100%); filter: blur(0.5px); }
+        .countdown-section { text-align: center; margin-bottom: 35px; padding: 25px; background: linear-gradient(135deg, rgba(201, 169, 98, 0.08) 0%, rgba(201, 169, 98, 0.03) 100%); border-radius: 5px; }
+        .countdown-title { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-dark); margin-bottom: 15px; text-transform: uppercase; }
+        .countdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .countdown-item { text-align: center; min-width: 70px; }
+        .countdown-number { font-family: 'Cinzel', serif; font-size: 2.5rem; font-weight: 600; color: var(--charcoal); line-height: 1; }
+        .countdown-label { font-size: 0.8rem; color: var(--soft-gray); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 5px; }
+        .monogram { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 400; letter-spacing: 0.5em; color: var(--charcoal); text-align: center; margin-bottom: 30px; padding-left: 0.5em; }
+        .monogram span { color: var(--gold); }
+        .monogram-logo { text-align: center; margin-bottom: 30px; }
+        .logo-img { max-width: 150px; height: auto; }
+        .demo-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(201, 169, 98, 0.4);
+            z-index: 1000;
+        }
+        .names { 
+            font-family: 'Alex Brush', cursive;
+            font-size: 4rem;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-align: center; 
+            color: var(--charcoal); 
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .name-daniela {
+            font-family: 'Alex Brush', cursive;
+        }
+        .name-adrian {
+            font-family: 'Alex Brush', cursive;
+        }
+        .names .amp { 
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem; 
+            color: var(--gold); 
+            display: inline-block; 
+            margin: 0 10px; 
+        }
+        
+        .nasi-section { text-align: center; margin-bottom: 25px; }
+        .nasi-intro { font-size: 0.95rem; color: var(--soft-gray); margin-bottom: 8px; font-style: italic; }
+        .nasi-names { font-size: 1.15rem; color: var(--charcoal); font-weight: 500; }
+        
+        .parents-section { text-align: center; margin-bottom: 35px; font-size: 1rem; line-height: 1.8; color: var(--soft-gray); }
+        .parents-intro { font-size: 0.9rem; margin-bottom: 15px; }
+        .parents-names { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+        .parent-group { text-align: center; }
+        .parent-family { font-variant: small-caps; letter-spacing: 0.1em; color: var(--charcoal); font-weight: 500; margin-bottom: 5px; }
+        .invite-text { text-align: center; font-size: 1.05rem; line-height: 1.8; color: var(--soft-gray); margin-bottom: 30px; }
+        .date { font-family: 'Cinzel', serif; font-size: 1.8rem; text-align: center; color: var(--charcoal); margin-bottom: 20px; font-weight: 500; letter-spacing: 0.1em; }
+        .calendar-btn { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 auto 45px; padding: 12px 25px; background: transparent; border: 1px solid var(--gold); color: var(--gold-dark); font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; border-radius: 3px; text-decoration: none; }
+        .calendar-btn:hover { background: var(--gold); color: white; }
+        .calendar-btn svg { width: 16px; height: 16px; fill: currentColor; }
+        .events { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-bottom: 40px; }
+        .event { text-align: center; flex: 1; min-width: 200px; max-width: 280px; }
+        .event-icon { width: 50px; height: 50px; margin: 0 auto 15px; opacity: 0.7; }
+        .event-icon svg { width: 100%; height: 100%; fill: var(--gold); }
+        .event-title { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.15em; color: var(--charcoal); margin-bottom: 10px; text-transform: uppercase; }
+        .event-name { font-size: 1.1rem; color: var(--charcoal); margin-bottom: 5px; font-weight: 500; }
+        .event-address { font-size: 0.9rem; color: var(--soft-gray); margin-bottom: 8px; line-height: 1.5; }
+        .event-time { font-size: 0.95rem; color: var(--gold-dark); font-weight: 500; margin-bottom: 15px; }
+        .nav-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .event-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 15px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 0.1em; border-radius: 3px; transition: all 0.3s ease; font-family: 'Cinzel', serif; text-transform: uppercase; }
+        .event-link:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(201, 169, 98, 0.4); }
+        .event-link.waze { background: linear-gradient(135deg, var(--waze) 0%, #00AADD 100%); }
+        .event-link.waze:hover { box-shadow: 0 5px 20px rgba(51, 204, 255, 0.4); }
+        .event-link svg { width: 14px; height: 14px; fill: white; }
+        .closing { font-family: 'Great Vibes', cursive; font-size: 2rem; text-align: center; color: var(--charcoal); margin-top: 30px; }
+        
+        .confirm-info { text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(201, 169, 98, 0.2); font-size: 0.9rem; color: var(--soft-gray); line-height: 1.8; }
+        .confirm-info strong { color: var(--gold-dark); }
+        .confirm-phones { margin-top: 10px; }
+        .confirm-phones a { color: var(--gold-dark); text-decoration: none; }
+        .confirm-phones a:hover { text-decoration: underline; }
+        
+        .qr-section { text-align: center; padding: 30px; background: rgba(201, 169, 98, 0.05); border-radius: 5px; margin-top: 30px; }
+        .qr-title { font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--gold-dark); margin-bottom: 15px; text-transform: uppercase; }
+        .qr-instruction { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .qr-step { background: linear-gradient(135deg, rgba(201, 169, 98, 0.15) 0%, rgba(201, 169, 98, 0.08) 100%); padding: 10px 15px; border-radius: 20px; font-size: 0.85rem; color: var(--charcoal); }
+        .qr-arrow { color: var(--gold); font-size: 1.2rem; }
+        .qr-text-highlight { font-size: 0.95rem; color: var(--charcoal); font-weight: 500; margin-bottom: 8px; background: linear-gradient(135deg, rgba(201, 169, 98, 0.12) 0%, transparent 100%); padding: 8px 15px; border-radius: 5px; display: inline-block; }
+        .qr-code { width: 150px; height: 150px; margin: 0 auto 15px; padding: 10px; background: white; border-radius: 5px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); }
+        .qr-code img { width: 100%; height: 100%; }
+        .qr-text { font-size: 0.85rem; color: var(--soft-gray); }
+        .rsvp-card { background: linear-gradient(145deg, #FFFFFF 0%, #FDFCFA 100%); }
+        .rsvp-title { font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 0.2em; text-align: center; color: var(--charcoal); margin-bottom: 10px; text-transform: uppercase; }
+        .rsvp-subtitle { text-align: center; color: var(--soft-gray); font-size: 0.95rem; margin-bottom: 30px; }
+        .rsvp-deadline { color: var(--gold-dark); font-weight: 500; }
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--soft-gray); margin-bottom: 8px; text-transform: uppercase; }
+        .form-input { width: 100%; padding: 15px; border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 3px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--charcoal); background: rgba(255, 255, 255, 0.8); transition: all 0.3s ease; }
+        .form-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1); }
+        .form-input::placeholder { color: #BBBBBB; }
+        .form-input.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1); }
+        .error-message { color: var(--error); font-size: 0.85rem; margin-top: 5px; display: none; }
+        .error-message.show { display: block; }
+        .attendance-group { margin-bottom: 30px; }
+        .attendance-label { display: block; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--charcoal); margin-bottom: 15px; text-transform: uppercase; text-align: center; }
+        .attendance-options { display: flex; gap: 15px; justify-content: center; }
+        .attendance-option { flex: 1; max-width: 180px; }
+        .attendance-input { display: none; }
+        .attendance-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 15px; border: 2px solid rgba(201, 169, 98, 0.3); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.8); }
+        .attendance-btn:hover { border-color: var(--gold); transform: translateY(-2px); }
+        .attendance-icon { font-size: 2rem; margin-bottom: 8px; }
+        .attendance-text { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft-gray); }
+        .attendance-input[value="da"]:checked + .attendance-btn { border-color: var(--gold); background: linear-gradient(135deg, rgba(201, 169, 98, 0.15) 0%, rgba(201, 169, 98, 0.05) 100%); box-shadow: 0 5px 20px rgba(201, 169, 98, 0.2); }
+        .attendance-input[value="da"]:checked + .attendance-btn .attendance-text { color: var(--gold-dark); font-weight: 600; }
+        .attendance-input[value="nu"]:checked + .attendance-btn { border-color: var(--decline-red); background: linear-gradient(135deg, rgba(139, 69, 87, 0.1) 0%, rgba(139, 69, 87, 0.03) 100%); box-shadow: 0 5px 20px rgba(139, 69, 87, 0.15); }
+        .attendance-input[value="nu"]:checked + .attendance-btn .attendance-text { color: var(--decline-red); font-weight: 600; }
+        .decline-section { display: none; text-align: center; padding: 30px 20px; background: rgba(139, 69, 87, 0.05); border-radius: 8px; margin-bottom: 25px; }
+        .decline-section.show { display: block; animation: fadeIn 0.4s ease-out; }
+        .decline-emoji { font-size: 3rem; margin-bottom: 15px; }
+        .decline-title { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--charcoal); margin-bottom: 10px; }
+        .decline-text { color: var(--soft-gray); font-size: 0.95rem; line-height: 1.6; }
+        .antispam-group { background: rgba(201, 169, 98, 0.05); padding: 20px; border-radius: 5px; margin-bottom: 25px; }
+        .antispam-label { display: block; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--soft-gray); margin-bottom: 8px; }
+        .antispam-question { font-size: 1.1rem; color: var(--charcoal); margin-bottom: 10px; }
+        .antispam-input { width: 100px; padding: 10px 15px; border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 3px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; text-align: center; }
+        .antispam-input:focus { outline: none; border-color: var(--gold); }
+        .antispam-input.error { border-color: var(--error); }
+        .radio-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .radio-option { flex: 1; min-width: 70px; }
+        .radio-input { display: none; }
+        .radio-label { display: flex; align-items: center; justify-content: center; padding: 15px; border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 3px; cursor: pointer; font-size: 1rem; color: var(--soft-gray); transition: all 0.3s ease; background: rgba(255, 255, 255, 0.8); }
+        .radio-input:checked + .radio-label { border-color: var(--gold); background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, rgba(201, 169, 98, 0.05) 100%); color: var(--charcoal); }
+        .radio-label:hover { border-color: var(--gold-light); }
+        .guest-section { background: rgba(201, 169, 98, 0.05); border: 1px solid rgba(201, 169, 98, 0.15); border-radius: 5px; padding: 20px; margin-bottom: 20px; }
+        .guest-section-title { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gold-dark); margin-bottom: 15px; text-transform: uppercase; }
+        .guest-name-input { margin-bottom: 15px; }
+        .menu-options { display: flex; gap: 12px; flex-wrap: wrap; }
+        .menu-option { flex: 1; min-width: 90px; }
+        .menu-input { display: none; }
+        .menu-label { display: flex; flex-direction: column; align-items: center; padding: 15px 8px; border: 1px solid rgba(201, 169, 98, 0.3); border-radius: 3px; cursor: pointer; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.8); }
+        .menu-input:checked + .menu-label { border-color: var(--gold); background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, rgba(201, 169, 98, 0.05) 100%); }
+        .menu-label:hover { border-color: var(--gold-light); }
+        .menu-icon { font-size: 1.8rem; margin-bottom: 5px; }
+        .menu-text { font-size: 0.8rem; color: var(--soft-gray); text-align: center; }
+        .menu-input:checked + .menu-label .menu-text { color: var(--charcoal); font-weight: 500; }
+        .dynamic-menu-label { display: block; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--soft-gray); margin-bottom: 10px; text-transform: uppercase; }
+        .submit-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: white; border: none; border-radius: 3px; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4); }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .submit-btn.decline-btn { background: linear-gradient(135deg, var(--decline-red) 0%, #6B3344 100%); }
+        .submit-btn.decline-btn:hover { box-shadow: 0 10px 30px rgba(139, 69, 87, 0.4); }
+        .success-message { display: none; text-align: center; padding: 40px 20px; }
+        .success-message.show { display: block; }
+        .success-icon { font-size: 4rem; margin-bottom: 20px; }
+        .success-title { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 0.15em; color: var(--charcoal); margin-bottom: 15px; }
+        .success-text { color: var(--soft-gray); font-size: 1rem; line-height: 1.6; }
+        .contact-info { text-align: center; margin-top: 30px; padding-top: 25px; border-top: 1px solid rgba(201, 169, 98, 0.2); }
+        .contact-label { font-size: 0.85rem; color: var(--soft-gray); margin-bottom: 10px; }
+        .contact-phone { font-size: 1rem; color: var(--charcoal); line-height: 1.8; }
+        .contact-phone a { color: var(--gold-dark); text-decoration: none; }
+        .contact-phone a:hover { text-decoration: underline; }
+        .footer { text-align: center; padding: 30px 20px; color: var(--soft-gray); font-size: 0.9rem; }
+        .footer-names { font-family: 'Alex Brush', cursive; font-size: 1.8rem; color: var(--charcoal); margin-bottom: 5px; }
+        @media (max-width: 600px) {
+            .invitation-container { padding: 15px; }
+            .card-inner { padding: 40px 25px; }
+            .names { font-size: 3.2rem; }
+            .names .amp { font-size: 2.5rem; }
+            .date { font-size: 1.5rem; }
+            .events { gap: 30px; }
+            .event { min-width: 100%; }
+            .parents-names { flex-direction: column; gap: 20px; }
+            .monogram { font-size: 1.5rem; }
+            .radio-group { gap: 10px; }
+            .radio-option { min-width: 60px; }
+            .radio-label { padding: 12px 10px; font-size: 0.9rem; }
+            .menu-options { gap: 8px; }
+            .menu-option { min-width: 80px; }
+            .menu-label { padding: 12px 5px; }
+            .menu-icon { font-size: 1.4rem; }
+            .menu-text { font-size: 0.75rem; }
+            .countdown-number { font-size: 2rem; }
+            .countdown-item { min-width: 60px; }
+            .nav-buttons { flex-direction: column; align-items: center; }
+            .event-link { width: 100%; justify-content: center; }
+            .attendance-options { flex-direction: column; align-items: center; }
+            .attendance-option { max-width: 100%; width: 100%; }
+            .demo-badge { top: 10px; right: 10px; padding: 8px 15px; font-size: 0.65rem; }
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .card { animation: fadeInUp 0.8s ease-out forwards; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .guest-section { animation: fadeIn 0.4s ease-out forwards; }
+        .form-input.error, .antispam-input.error { animation: shake 0.3s ease-out; }
+        .countdown-number { animation: pulse 2s ease-in-out infinite; }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">🎨 VERSIUNE DEMO</div>
+    <div class="bg-decoration"></div>
+    <div class="invitation-container">
+        <div class="card">
+            <div class="card-inner">
+                <div class="gold-edge"></div>
+                <div class="countdown-section">
+                    <p class="countdown-title">Până la marele eveniment</p>
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-item"><div class="countdown-number" id="days">--</div><div class="countdown-label">Zile</div></div>
+                        <div class="countdown-item"><div class="countdown-number" id="hours">--</div><div class="countdown-label">Ore</div></div>
+                        <div class="countdown-item"><div class="countdown-number" id="minutes">--</div><div class="countdown-label">Minute</div></div>
+                        <div class="countdown-item"><div class="countdown-number" id="seconds">--</div><div class="countdown-label">Secunde</div></div>
+                    </div>
+                </div>
+                <div class="monogram-logo"><img src="sigla.jpeg" alt="Daniela & Adrian" class="logo-img"></div>
+                
+                <h1 class="names">
+                    <span class="name-daniela">Daniela</span>
+                    <span class="amp">&</span>
+                    <span class="name-adrian">Adrian</span>
+                </h1>
+                
+                <div class="nasi-section">
+                    <p class="nasi-intro">alături de nașii,</p>
+                    <p class="nasi-names">Elena și Mihai Popescu</p>
+                </div>
+                
+                <div class="parents-section">
+                    <p class="parents-intro">Împreună cu părinții</p>
+                    <div class="parents-names">
+                        <div class="parent-group">
+                            <p class="parent-family">Maria și Ion</p>
+                            <p>Dumitrescu</p>
+                        </div>
+                        <div class="parent-group">
+                            <p class="parent-family">Ana și Gheorghe</p>
+                            <p>Ionescu</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="invite-text">
+                    Avem deosebita plăcere de a vă invita să participați la<br>
+                    celebrarea căsătoriei noastre în data de
+                </p>
+                
+                <p class="date">DUMINICĂ, 15 IUNIE 2026</p>
+
+                <a href="#" class="calendar-btn" id="addToCalendar">
+                    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                    Adaugă în calendar
+                </a>
+                
+                <div class="events">
+                    <div class="event">
+                        <div class="event-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zm0 2.5L18 7H6l6-2.5zM4 11v9h2v-7h12v7h2v-9H4zm6 2v5h4v-5h-4zm2 1c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg></div>
+                        <p class="event-title">Cununia Religioasă</p>
+                        <p class="event-name">Catedrala Sfântul Nicolae</p>
+                        <p class="event-address">Bulevardul Unirii 25<br>Brașov, România</p>
+                        <p class="event-time">Ora 15:00</p>
+                        <div class="nav-buttons">
+                            <a href="#" onclick="alert('Aceasta este versiunea DEMO - link-urile nu sunt funcționale'); return false;" class="event-link"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Google Maps</a>
+                            <a href="#" onclick="alert('Aceasta este versiunea DEMO - link-urile nu sunt funcționale'); return false;" class="event-link waze"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Waze</a>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <div class="event-icon"><svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg></div>
+                        <p class="event-title">Petrecerea</p>
+                        <p class="event-name">Grand Hotel Imperial</p>
+                        <p class="event-address">Strada Florilor 10<br>Brașov, România</p>
+                        <p class="event-time">Ora 18:00</p>
+                        <div class="nav-buttons">
+                            <a href="#" onclick="alert('Aceasta este versiunea DEMO - link-urile nu sunt funcționale'); return false;" class="event-link"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Google Maps</a>
+                            <a href="#" onclick="alert('Aceasta este versiunea DEMO - link-urile nu sunt funcționale'); return false;" class="event-link waze"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Waze</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="closing">Vă așteptăm cu drag!</p>
+                
+                <div class="confirm-info">
+                    <p>Vă rugăm să confirmați prezența până la data de <strong>20 Mai 2026</strong>,<br>la numerele de telefon sau WhatsApp:</p>
+                    <p class="confirm-phones">
+                        Daniela: 
+                        <a href="tel:+40700123456">0700 123 456</a> 
+                        | 
+                        <a href="#" onclick="alert('Aceasta este versiunea DEMO'); return false;" style="color: #25D366;">WhatsApp</a>
+                        &nbsp;|&nbsp; 
+                        Adrian: 
+                        <a href="tel:+40700654321">0700 654 321</a>
+                        | 
+                        <a href="#" onclick="alert('Aceasta este versiunea DEMO'); return false;" style="color: #25D366;">WhatsApp</a>
+                    </p>
+                </div>
+
+                <div class="qr-section">
+                    <p class="qr-title">Confirmă prezența online</p>
+                    <div class="qr-instruction">
+                        <span class="qr-step">📱 Scanează codul QR</span>
+                        <span class="qr-arrow">↓</span>
+                        <span class="qr-step">👇 Derulează în jos</span>
+                        <span class="qr-arrow">↓</span>
+                        <span class="qr-step">✍️ Completează formularul</span>
+                    </div>
+                    <div class="qr-code"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://example.com/demo" alt="QR Code Demo"></div>
+                    <p class="qr-text-highlight">După scanare, <strong>derulează în jos</strong> pentru a completa formularul de confirmare!</p>
+                    <p class="qr-text">Poți trimite link-ul și prietenilor</p>
+                    <a href="#rsvpForm" class="calendar-btn" style="margin-top: 15px;">
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                        Mergi direct la formular
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card rsvp-card">
+            <div class="card-inner">
+                <div class="gold-edge"></div>
+                <div id="rsvpForm">
+                    <h2 class="rsvp-title">Confirmare Online</h2>
+                    <p class="rsvp-subtitle">Confirmați prezența până la <span class="rsvp-deadline">20 Mai 2026</span></p>
+                    <form id="weddingRsvp" novalidate autocomplete="off">
+                        <div class="attendance-group">
+                            <label class="attendance-label">Veți participa la eveniment?</label>
+                            <div class="attendance-options">
+                                <div class="attendance-option">
+                                    <input type="radio" id="attendYes" name="attendance" value="da" class="attendance-input" checked>
+                                    <label for="attendYes" class="attendance-btn"><span class="attendance-icon">🎉</span><span class="attendance-text">Da, vin!</span></label>
+                                </div>
+                                <div class="attendance-option">
+                                    <input type="radio" id="attendNo" name="attendance" value="nu" class="attendance-input">
+                                    <label for="attendNo" class="attendance-btn"><span class="attendance-icon">😔</span><span class="attendance-text">Nu pot veni</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decline-section" id="declineSection">
+                            <div class="decline-emoji">💐</div>
+                            <p class="decline-title">Ne pare rău că nu puteți fi alături de noi</p>
+                            <p class="decline-text">Vă rugăm să completați datele de mai jos pentru a ne anunța.</p>
+                        </div>
+                        <div class="form-sections" id="formSections">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Nume și Prenume</label>
+                                <input type="text" id="name" name="name_field" class="form-input" placeholder="Introduceți numele complet" required autocomplete="off">
+                                <p class="error-message" id="nameError">Vă rugăm să introduceți numele</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Telefon</label>
+                                <input type="tel" id="phone" name="phone_field" class="form-input" placeholder="07XX XXX XXX" required autocomplete="off">
+                                <p class="error-message" id="phoneError">Vă rugăm să introduceți numărul de telefon</p>
+                            </div>
+                            <div class="form-group" id="guestsGroup">
+                                <label class="form-label">Număr de persoane</label>
+                                <div class="radio-group">
+                                    <div class="radio-option"><input type="radio" id="guests1" name="guests" value="1" class="radio-input" checked><label for="guests1" class="radio-label">1</label></div>
+                                    <div class="radio-option"><input type="radio" id="guests2" name="guests" value="2" class="radio-input"><label for="guests2" class="radio-label">2</label></div>
+                                    <div class="radio-option"><input type="radio" id="guests3" name="guests" value="3" class="radio-input"><label for="guests3" class="radio-label">3</label></div>
+                                    <div class="radio-option"><input type="radio" id="guests4" name="guests" value="4" class="radio-input"><label for="guests4" class="radio-label">4</label></div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="menu1Group">
+                                <label class="dynamic-menu-label" id="menu1Label">Preferință meniu</label>
+                                <div class="menu-options">
+                                    <div class="menu-option"><input type="radio" id="menuCarne1" name="menu1" value="carne" class="menu-input" checked><label for="menuCarne1" class="menu-label"><span class="menu-icon">🥩</span><span class="menu-text">Carne</span></label></div>
+                                    <div class="menu-option"><input type="radio" id="menuVegetarian1" name="menu1" value="vegetarian" class="menu-input"><label for="menuVegetarian1" class="menu-label"><span class="menu-icon">🌱</span><span class="menu-text">Vegetarian</span></label></div>
+                                    <div class="menu-option"><input type="radio" id="menuCopil1" name="menu1" value="copil" class="menu-input"><label for="menuCopil1" class="menu-label"><span class="menu-icon">🧒</span><span class="menu-text">Meniu Copil</span></label></div>
+                                </div>
+                            </div>
+                            <div id="additionalGuests"></div>
+                        </div>
+                        <div class="decline-form-fields" id="declineFormFields" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label" for="declineName">Nume și Prenume</label>
+                                <input type="text" id="declineName" name="decline_name_field" class="form-input" placeholder="Introduceți numele complet" autocomplete="off">
+                                <p class="error-message" id="declineNameError">Vă rugăm să introduceți numele</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="declinePhone">Telefon</label>
+                                <input type="tel" id="declinePhone" name="decline_phone_field" class="form-input" placeholder="07XX XXX XXX" autocomplete="off">
+                                <p class="error-message" id="declinePhoneError">Vă rugăm să introduceți numărul de telefon</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">Mesaj pentru miri (opțional)</label>
+                            <textarea id="message" name="message_field" class="form-input" rows="3" placeholder="Scrieți un mesaj sau mențiuni speciale..." autocomplete="off"></textarea>
+                        </div>
+                        <div class="antispam-group">
+                            <label class="antispam-label">Verificare anti-spam</label>
+                            <p class="antispam-question" id="antispamQuestion">Cât face 3 + 4 = ?</p>
+                            <input type="number" id="antispam" name="antispam_field" class="antispam-input" placeholder="?" required autocomplete="off">
+                            <p class="error-message" id="antispamError">Răspuns incorect</p>
+                            <input type="hidden" id="antispamAnswer" value="7">
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">Confirmă Prezența</button>
+                    </form>
+                    <div class="contact-info">
+                        <p class="contact-label">Pentru orice întrebări, ne puteți contacta:</p>
+                        <p class="contact-phone">
+                            Daniela: 
+                            <a href="tel:+40700123456">0700 123 456</a>
+                            <span style="color: var(--soft-gray); margin: 0 5px;">|</span>
+                            <a href="#" onclick="alert('Aceasta este versiunea DEMO'); return false;" style="color: #25D366;">WhatsApp</a>
+                            <br>
+                            Adrian: 
+                            <a href="tel:+40700654321">0700 654 321</a>
+                            <span style="color: var(--soft-gray); margin: 0 5px;">|</span>
+                            <a href="#" onclick="alert('Aceasta este versiunea DEMO'); return false;" style="color: #25D366;">WhatsApp</a>
+                        </p>
+                    </div>
+                </div>
+                <div id="successMessage" class="success-message">
+                    <div class="success-icon">💍</div>
+                    <h3 class="success-title">Mulțumim!</h3>
+                    <p class="success-text">Confirmarea ta a fost înregistrată.<br>Abia așteptăm să sărbătorim împreună!</p>
+                </div>
+                <div id="declineSuccessMessage" class="success-message decline">
+                    <div class="success-icon">💐</div>
+                    <h3 class="success-title">Mulțumim pentru răspuns!</h3>
+                    <p class="success-text">Ne pare rău că nu puteți fi alături de noi,<br>dar vă mulțumim că ne-ați anunțat.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p class="footer-names">Daniela & Adrian</p>
+            <p>15 Iunie 2026 • Brașov</p>
+        </div>
+    </div>
+    <script>
+        const antispamQuestions = [
+            { question: "Cât face 2 + 5 = ?", answer: 7 },
+            { question: "Cât face 8 - 3 = ?", answer: 5 },
+            { question: "Cât face 3 × 3 = ?", answer: 9 },
+            { question: "Cât face 12 - 4 = ?", answer: 8 },
+            { question: "Cât face 6 + 6 = ?", answer: 12 },
+        ];
+        let currentAntispam = null;
+
+        function generateAntispam() {
+            const randomIndex = Math.floor(Math.random() * antispamQuestions.length);
+            currentAntispam = antispamQuestions[randomIndex];
+            document.getElementById('antispamQuestion').textContent = currentAntispam.question;
+            document.getElementById('antispamAnswer').value = currentAntispam.answer;
+            document.getElementById('antispam').value = '';
+        }
+
+        window.addEventListener('load', function() {
+            generateAntispam();
+        });
+
+        // Wedding date: June 15, 2026 at 15:00 Romania time (EEST = UTC+3)
+        const weddingDateUTC = Date.UTC(2026, 5, 15, 12, 0, 0); // 12:00 UTC = 15:00 EEST
+        const weddingDate = weddingDateUTC;
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            if (distance > 0) {
+                document.getElementById('days').textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('minutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('seconds').textContent = Math.floor((distance % (1000 * 60)) / 1000);
+            } else {
+                document.getElementById('countdown').innerHTML = '<p style="font-size: 1.5rem; color: var(--gold);">Ziua cea mare a sosit! 🎉</p>';
+            }
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        document.getElementById('addToCalendar').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aceasta este versiunea DEMO - funcția de calendar nu este activă');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#rsvpForm') {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+        });
+
+        let isAttending = true;
+        document.querySelectorAll('input[name="attendance"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                isAttending = this.value === 'da';
+                const formSections = document.getElementById('formSections');
+                const declineSection = document.getElementById('declineSection');
+                const declineFormFields = document.getElementById('declineFormFields');
+                const submitBtn = document.getElementById('submitBtn');
+                if (isAttending) {
+                    formSections.style.display = 'block';
+                    declineSection.classList.remove('show');
+                    declineFormFields.style.display = 'none';
+                    submitBtn.textContent = 'Confirmă Prezența';
+                    submitBtn.classList.remove('decline-btn');
+                } else {
+                    formSections.style.display = 'none';
+                    declineSection.classList.add('show');
+                    declineFormFields.style.display = 'block';
+                    submitBtn.textContent = 'Trimite Răspunsul';
+                    submitBtn.classList.add('decline-btn');
+                }
+            });
+        });
+
+        function createGuestSection(guestNum) {
+            return `<div class="guest-section" id="guestSection${guestNum}">
+                <div class="guest-section-title">Persoana ${guestNum}</div>
+                <div class="guest-name-input">
+                    <label class="form-label" for="guestName${guestNum}">Nume și Prenume *</label>
+                    <input type="text" id="guestName${guestNum}" class="form-input" placeholder="Introduceți numele persoanei ${guestNum}" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="dynamic-menu-label" id="menu${guestNum}Label">Preferință meniu - Persoana ${guestNum}</label>
+                    <div class="menu-options">
+                        <div class="menu-option"><input type="radio" id="menuCarne${guestNum}" name="menu${guestNum}" value="carne" class="menu-input" checked><label for="menuCarne${guestNum}" class="menu-label"><span class="menu-icon">🥩</span><span class="menu-text">Carne</span></label></div>
+                        <div class="menu-option"><input type="radio" id="menuVegetarian${guestNum}" name="menu${guestNum}" value="vegetarian" class="menu-input"><label for="menuVegetarian${guestNum}" class="menu-label"><span class="menu-icon">🌱</span><span class="menu-text">Vegetarian</span></label></div>
+                        <div class="menu-option"><input type="radio" id="menuCopil${guestNum}" name="menu${guestNum}" value="copil" class="menu-input"><label for="menuCopil${guestNum}" class="menu-label"><span class="menu-icon">🧒</span><span class="menu-text">Meniu Copil</span></label></div>
+                    </div>
+                </div>
+            </div>`;
+        }
+        
+        function updateGuestSections(numGuests) {
+            const container = document.getElementById('additionalGuests');
+            container.innerHTML = '';
+            for (let i = 2; i <= numGuests; i++) container.innerHTML += createGuestSection(i);
+        }
+        
+        document.querySelectorAll('input[name="guests"]').forEach(radio => {
+            radio.addEventListener('change', function() { updateGuestSections(parseInt(this.value)); });
+        });
+
+        document.getElementById('weddingRsvp').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('🎉 Aceasta este VERSIUNEA DEMO!\n\nFormularul nu trimite date reale.\nÎn versiunea live, datele ar fi trimise către Google Sheets.');
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+</body>
+</html>
