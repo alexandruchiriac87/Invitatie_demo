@@ -351,7 +351,7 @@
                         <span class="qr-arrow">↓</span>
                         <span class="qr-step">✍️ Completează formularul</span>
                     </div>
-                    <div class="qr-code"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://example.com/demo" alt="QR Code Demo"></div>
+                    <div class="qr-code"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alexandruchiriac87.github.io/Invitatie_demo/" alt="QR Code Demo"></div>
                     <p class="qr-text-highlight">După scanare, <strong>derulează în jos</strong> pentru a completa formularul de confirmare!</p>
                     <p class="qr-text">Poți trimite link-ul și prietenilor</p>
                     <a href="#rsvpForm" class="calendar-btn" style="margin-top: 15px;">
@@ -586,10 +586,20 @@
 
         document.getElementById('weddingRsvp').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('🎉 Aceasta este VERSIUNEA DEMO!\n\nFormularul nu trimite date reale.\nÎn versiunea live, datele ar fi trimise către Google Sheets.');
+            
+            // Show demo alert
+            alert('🎉 Aceasta este VERSIUNEA DEMO!\n\n✅ Formularul funcționează perfect!\n📝 În versiunea live, datele sunt trimise automat către Google Sheets.\n\n🔒 Datele tale NU sunt salvate în această versiune demo.');
+            
+            // Hide form and show success message
             document.getElementById('rsvpForm').style.display = 'none';
-            document.getElementById('successMessage').classList.add('show');
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            if (isAttending) {
+                document.getElementById('successMessage').classList.add('show');
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                document.getElementById('declineSuccessMessage').classList.add('show');
+                document.getElementById('declineSuccessMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         });
     </script>
 </body>
